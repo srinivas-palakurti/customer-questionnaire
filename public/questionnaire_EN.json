@@ -1,0 +1,495 @@
+{
+  "questionnaire": {
+    "id": 40,
+    "name": "Personal liability insurance",
+    "questions":
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110962",
+        "headline": "Who do you want to assure?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "My family with children",
+            "value": "My family with children",
+            "selected": false
+          },
+          {
+            "label": "My family without children",
+            "value": "My family without children",
+            "selected": false
+          },
+          {
+            "label": "Me without a child",
+            "value": "Me without a child",
+            "selected": false
+          },
+          {
+            "label": "Me with child",
+            "value": "Me with child",
+            "selected": false
+          },
+          {
+            "label": "Me and my life partner",
+            "value": "Me and my life partner",
+            "selected": false
+          }
+        ],
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12111610",
+        "headline": "Are you a civil servant or a civil servant?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes",
+            "value": "yes",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ],
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12111777",
+        "headline": "Do you want to cover a loss of receivables cover?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes",
+            "value": "yes",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ],
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110966",
+        "headline": "How important is the protection against rent damages?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Important",
+            "value": "important",
+            "selected": false
+          },
+          {
+            "label": "unimportant",
+            "value": "unimportant",
+            "selected": false
+          }
+        ],
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110967",
+        "headline": "Are you the owner of one or more properties?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes",
+            "value": "yes",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ],
+        "jumps":
+          {
+            "conditions":
+              {
+                "field": "list_12110967",
+                "value": "yes"
+              }
+            ]
+            "destination": {
+              "id": "list_12110968"
+            }
+          },
+          {
+            "conditions":
+              {
+                "field": "list_12110967",
+                "value": "no"
+              }
+            ]
+            "destination": {
+              "id": "list_12111854"
+            }
+          }
+        ]
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110968",
+        "headline": "Do you own a self-immovable property?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes, inland",
+            "value": "Yes, inland",
+            "selected": false
+          },
+          {
+            "label": "Yes, abroad",
+            "value": "Yes, abroad",
+            "selected": false
+          },
+          {
+            "label": "Yes, at home and abroad",
+            "value": "Yes, at home and abroad",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_13907264",
+        "headline": "Do you have one or more properties let?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes, inland",
+            "value": "Yes, inland",
+            "selected": false
+          },
+          {
+            "label": "Yes, abroad",
+            "value": "Yes, abroad",
+            "selected": false
+          },
+          {
+            "label": "Yes, at home and abroad",
+            "value": "Yes, at home and abroad",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12111854",
+        "headline": "Would you like to build or convert something in the near future?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes",
+            "value": "yes",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110972",
+        "headline": "How important is the protection against professional key loss?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Important",
+            "value": "important",
+            "selected": false
+          },
+          {
+            "label": "unimportant",
+            "value": "unimportant",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_13913438",
+        "headline": "Do you want to protect the loss of private keys?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes",
+            "value": "yes",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110969",
+        "headline": "Do you want to be protected abroad?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes, up to a month",
+            "value": "Yes, up to a month",
+            "selected": false
+          },
+          {
+            "label": "Yes, several months",
+            "value": "Yes, several months",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110970",
+        "headline": "Do you have a sailboat?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Up to 4 m²",
+            "value": "Up to 4 m²",
+            "selected": false
+          },
+          {
+            "label": "Up to 10 m²",
+            "value": "Up to 10 m²",
+            "selected": false
+          },
+          {
+            "label": "Up to 15 m²",
+            "value": "Up to 15 m²",
+            "selected": false
+          },
+          {
+            "label": "Up to 25 m²",
+            "value": "Up to 25 m²",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110971",
+        "headline": "Do you have a motorboat?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Up to 5 hp",
+            "value": "Up to 5 hp",
+            "selected": false
+          },
+          {
+            "label": "Up to 10 hp",
+            "value": "Up to 10 hp",
+            "selected": false
+          },
+          {
+            "label": "Up to 15 hp",
+            "value": "Up to 15 hp",
+            "selected": false
+          },
+          {
+            "label": "Unlimited horsepower",
+            "value": "Unlimited horsepower",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12110965",
+        "headline": "Would you like to pay a part yourself in case of a claim?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          },
+          {
+            "label": "Yes, up to 150 Euro",
+            "value": "Yes, to 150 euros",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12111717",
+        "headline": "Do you already have a personal liability insurance?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "Yes",
+            "value": "yes",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": false
+          }
+        ]
+        "jumps":
+          {
+            "conditions":
+              {
+                "field": "list_12111717",
+                "value": "yes"
+              }
+            ]
+            "destination": {
+              "id": "list_12111755"
+            }
+          },
+          {
+            "conditions":
+              {
+                "field": "list_12111717",
+                "value": "no"
+              }
+            ]
+            "destination": {
+              "id": "date_22039590"
+            }
+          }
+        ]
+      },
+      {
+        "question_type": "multiple-choice",
+        "identifier": "list_12111755",
+        "headline": "How many liability damages did you have in the last 5 years?",
+        "description": null,
+        "required": false,
+        "multiple": "false",
+        "choices": [
+          {
+            "label": "none",
+            "value": "none",
+            "selected": false
+          },
+          {
+            "label": "1",
+            "value": "1",
+            "selected": false
+          },
+          {
+            "label": "2",
+            "value": "2",
+            "selected": false
+          },
+          {
+            "label": "3",
+            "value": "3",
+            "selected": false
+          },
+          {
+            "label": "More than 3",
+            "value": "more than 3",
+            "selected": false
+          }
+        ]
+        "jumps": []
+      },
+      {
+        "question_type": "text",
+        "identifier": "date_22039590",
+        "headline": "What would be your preferred date for the start of personal liability insurance?",
+        "description": null,
+        "required": false,
+        "multiline": "false",
+        "jumps": []
+      },
+      {
+        "question_type": "text",
+        "identifier": "textarea_12110979",
+        "headline": "Do you have any further information or comments for us?",
+        "description": null,
+        "required": false,
+        "multiline": "true",
+        "jumps": []
+      }
+    ]
+    "description": "To create your personal personal liability insurance offer, we need some information from you.",
+    "category_name_hyphenated": "pri \ u0026shy; vat \ u0026shy; liable \ u0026shy; duty"
+  }
+}
