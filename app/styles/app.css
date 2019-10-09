@@ -1,3 +1,4 @@
+
  body {
   margin: 0px;
   /* background-color: #24292e; */
@@ -22,7 +23,7 @@
 .main-content {
   padding: 20px;
 }
-.main-content button {
+.main-content a {
 margin-top: 10%;
 }
 
