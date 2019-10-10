@@ -1,55 +1,60 @@
- Question {{this.nextCounter}})
-
-{{#each this.questions as |question index|}}
-  <div id = {{ if (lt index this.nextCounter) "previous-view" "next-view"}} class={{if (eq index this.nextCounter) "show-question" "hide-question"}}>
+Question {{this.nextCounter}})
+{{#each this.model.questionnaire.questions as |question index|}}
+  <div id={{ if (lt index this.nextCounter) "previous-view" "next-view"}}
+    class={{if (eq index this.nextCounter) "show-question" "hide-question"}}>
     <div id="myCarousel" class="">
-        <b>{{question.headline}}</b>
-        <p>
-          {{question.description}}
-        </p>
+      <b>{{question.headline}}</b>
+      <p>
+        {{question.description}}
+      </p>
     </div>
 
-    {{!-- {{if (is-equal question.question_type }} --}}
-      {{#each question.choices as |item|}}
-        {{!-- {{item}} --}}
-        {{!-- <div></div> --}}
-
-        <div class="input-group" style="padding-left:10%;">
-          <label>
-            <input type="radio" name={{item.identifier}} value={{item.label}}>
-                {{item.label}}
-          </label>
-        </div>
-        {{!-- <div class="input-group" style="padding-left:10%;">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="radio" aria-label="Radio button for following text input">
-            </div>
+    {{#if (is-equal question.question_type "multiple-choice")}}
+      {{#each item in question.choices itemController="QuestionContent"}}
+        {{#if (is-equal question.multiple "false")}}
+          <div class="input-group">
+            <label>
+              <input type="radio" name={{item.identifier}}
+                value={{item.selected}} >
+              {{item.label}}
+            </label>
+            {{!-- <label>
+              <input name={{concat item.identifier "team"}} type="radio" value={{item.value}}
+                onchange={{action (mut identifier) value="target.value"}}>
+              {{item.label}}
+            </label> --}}
           </div>
-          <label class="form-control"> {{item.label}}</label>
-        </div> --}}
+        {{else}}
+          <div class="input-group">
+            <label>
+              <input type="checkbox" name={{item.identifier}}
+              value={{item.selected}} onchange={{action checkboxSelected name value}}>
+              {{item.label}}
+            </label>
+          </div>
 
+        {{/if}}
       {{/each}}
-    {{!-- {{/if}} --}}
-    
+    {{else if (is-equal question.question_type "text")}}
+      {{#if (is-equal question.multiline "true")}}
+        <div class="input-group">
+          <textarea class="form-control" id="formControlTextarea1" rows="3"></textarea>
+        </div>
+      {{else}}
+        <div class="input-group">
+          <input class="form-control" type="text" name={{item.identifier}} id={{item.identifier}}>
+        </div>
+      {{/if}}
+    {{!-- {{else}} --}}
 
-    {{!-- <div class="" role="listbox"> --}}
-      {{!-- <div class="item"> --}}
-        {{!-- <div class="container"> --}}
-          {{!-- {{question.headline}} <br />
-          {{question.headline}} <br />
-          {{question.headline}} <br />
-          {{question.headline}} <br />
-          {{question.headline}} <br />
-          {{question.headline}} <br /> --}}
+    {{/if}}
 
-        {{!-- </div> --}}
-      {{!-- </div> --}}
-    {{!-- </div> --}}
+
   </div>
 
-
 {{/each}}
+
+{{!-- </form> --}}
 <footer class="page-footer">
   <div>
     <div class="container">

@@ -4,15 +4,33 @@ import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 // import { fadeOut, fadeIn } from 'ember-animated/motions/opacity';
 // import move from 'ember-animated/motions/move';
-import TransitionMixin from 'ember-css-transitions/mixins/transition-mixin';
 
 export default class QuestionContentController extends Controller {
+  /*
   questionsData = [{
     "questionnaire": {
       "id": 40,
       "identifier": "ewBzTS",
       "name": "Privathaftpflichtversicherung",
       "questions": [
+        {
+          "question_type": "text",
+          "identifier": "date_22039590",
+          "headline": "Was wäre Dein Wunschtermin für den Beginn der Privathaftpflichtversicherung?",
+          "description": null,
+          "required": false,
+          "multiline": "false",
+          "jumps": []
+        },
+        {
+          "question_type": "text",
+          "identifier": "textarea_12110979",
+          "headline": "Hast Du noch weitere Informationen oder Anmerkungen für uns?",
+          "description": null,
+          "required": false,
+          "multiline": "true",
+          "jumps": []
+        },
         {
           "question_type": "multiple-choice",
           "identifier": "list_12110962",
@@ -505,8 +523,9 @@ export default class QuestionContentController extends Controller {
   }];
 
   questions = this.questionsData[0].questionnaire.questions;
-
+ */
   @tracked nextCounter = 0;
+  isChecked = false;
 
   @action
   previousQuestion() {
@@ -520,6 +539,16 @@ export default class QuestionContentController extends Controller {
     this.nextCounter++;
   }
 
-  
+  @action
+  checkboxSelected(name, value) {
+    console.log(name + " " +value);
+    console.log('e tokenId', this.get('identifier'));
+    console.log('e tokenId', this.get('item-selected'));
+
+    this.get('model').forEach(function(item){
+      console.log(item.checked);
+    });
+  }
+
 
 }
