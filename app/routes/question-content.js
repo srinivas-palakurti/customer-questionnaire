@@ -20,7 +20,7 @@ export default Route.extend({
             "headline": "Wen möchtest Du versichern?",
             "description": null,
             "required": false,
-            "multiple": "true",
+            "multiple": "false",
             "choices": [
               {
                 "label": "Meine Familie mit Kindern",
@@ -505,14 +505,4 @@ export default Route.extend({
       }
     };
   }
-
-  // setupController: function(controller){
-    // controller.set('terms', config.terms);
-// }
-  // controller() {
-
-  // },
-  // setupController() {
-
-  // }
 });

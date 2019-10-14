@@ -24,6 +24,12 @@ export default function() {
     https://www.ember-cli-mirage.com/docs/route-handlers/shorthands
   */
 
+ /* this.get('/questions' () => {
+  return fetch('../../public/questionnaire.json').then(response => {
+    return response.json()[0].questionnaire.questions;
+  })
+ }); */
+
  /* let questionsData = [{
   "questionnaire": {
     "id": 40,

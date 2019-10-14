@@ -1,58 +1,53 @@
-Question {{this.nextCounter}})
-{{#each this.model.questionnaire.questions as |question index|}}
-  <div id={{ if (lt index this.nextCounter) "previous-view" "next-view"}}
-    class={{if (eq index this.nextCounter) "show-question" "hide-question"}}>
-    <div id="myCarousel" class="">
-      <b>{{question.headline}}</b>
-      <p>
-        {{question.description}}
-      </p>
-    </div>
+{{#if (is-equal this.nextButtonTitle "Finish")}}
+  <div class="finish-label">
+    <label>Please click on "Finish" button to submit your questionnaire</label>
+  </div>
+{{else}}
+  Question {{this.counterValue}})
+  {{#each this.model.questionnaire.questions as |question index|}}
+    <div id={{ if (lt index this.nextCounter) "previous-view" "next-view"}}
+      class={{if (eq index this.nextCounter) "show-question" "hide-question"}}>
+      <div id="myCarousel" class="">
+        <b>{{question.headline}}</b>
+        <p>
+          {{question.description}}
+        </p>
+      </div>
 
-    {{#if (is-equal question.question_type "multiple-choice")}}
-      {{#each item in question.choices itemController="QuestionContent"}}
-        {{#if (is-equal question.multiple "false")}}
+      {{#if (is-equal question.question_type "multiple-choice")}}
+        {{#each question.choices as |item|}}
+          {{#if (is-equal question.multiple "false")}}
+            <div class="input-group">
+              {{button-radio item=item identifier=question.identifier
+              optionSelected=(action "radioButtonSelected" question.identifier item.value) }}
+            </div>
+          {{else}}
+            <div class="input-group">
+              {{button-checkbox item=item identifier=question.identifier
+              optionSelected=(action "checkboxButtonSelected" question.identifier item.value) }}
+            </div>
+
+          {{/if}}
+        {{/each}}
+      {{else if (is-equal question.question_type "text")}}
+        {{#if (is-equal question.multiline "true")}}
           <div class="input-group">
-            <label>
-              <input type="radio" name={{item.identifier}}
-                value={{item.selected}} >
-              {{item.label}}
-            </label>
-            {{!-- <label>
-              <input name={{concat item.identifier "team"}} type="radio" value={{item.value}}
-                onchange={{action (mut identifier) value="target.value"}}>
-              {{item.label}}
-            </label> --}}
+            <textarea class="form-control" id="formControlTextarea1" rows="3"></textarea>
           </div>
         {{else}}
           <div class="input-group">
-            <label>
-              <input type="checkbox" name={{item.identifier}}
-              value={{item.selected}} onchange={{action checkboxSelected name value}}>
-              {{item.label}}
-            </label>
+            <input class="form-control" type="text" name={{item.identifier}} id={{item.identifier}}>
           </div>
-
         {{/if}}
-      {{/each}}
-    {{else if (is-equal question.question_type "text")}}
-      {{#if (is-equal question.multiline "true")}}
-        <div class="input-group">
-          <textarea class="form-control" id="formControlTextarea1" rows="3"></textarea>
-        </div>
-      {{else}}
-        <div class="input-group">
-          <input class="form-control" type="text" name={{item.identifier}} id={{item.identifier}}>
-        </div>
+
       {{/if}}
-    {{!-- {{else}} --}}
-
-    {{/if}}
 
 
-  </div>
+    </div>
 
-{{/each}}
+  {{/each}}
+
+{{/if}}
 
 {{!-- </form> --}}
 <footer class="page-footer">
@@ -60,7 +55,7 @@ Question {{this.nextCounter}})
     <div class="container">
       <div>
         <button class="btn btn-primary" disabled={{if (eq this.nextCounter 0) true false}} {{action "previousQuestion"}}>Previous</button>
-        <button class="btn btn-primary next-button" disabled={{if (lt this.questions.length this.nextCounter) true false}} {{action "nextQuestion"}}>Next</button>
+        <button class="btn btn-primary next-button" {{action "nextQuestion"}}>{{this.nextButtonTitle}}</button>
       </div>
     </div>
   </div>

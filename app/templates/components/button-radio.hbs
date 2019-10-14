@@ -1,0 +1,9 @@
+<label>
+  <input name={{identifier}} type="radio"
+  value={{item.value}} selected={{item.selected}}
+  onchange={{action "radioButtonSelected" item.value item.selected}}>
+  {{item.label}}
+</label>
+
+{{yield}}
+

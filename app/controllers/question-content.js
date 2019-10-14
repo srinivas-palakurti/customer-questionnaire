@@ -1,553 +1,288 @@
 import Controller from '@ember/controller';
 import { action } from "@ember/object";
-// import * as data from "../../public/questionnaire.json";
+// import EmberObject, { computed } from '@ember/object';
 import { tracked } from "@glimmer/tracking";
-// import { fadeOut, fadeIn } from 'ember-animated/motions/opacity';
-// import move from 'ember-animated/motions/move';
+import { A } from '@ember/array';
 
 export default class QuestionContentController extends Controller {
-  /*
-  questionsData = [{
-    "questionnaire": {
-      "id": 40,
-      "identifier": "ewBzTS",
-      "name": "Privathaftpflichtversicherung",
-      "questions": [
-        {
-          "question_type": "text",
-          "identifier": "date_22039590",
-          "headline": "Was wäre Dein Wunschtermin für den Beginn der Privathaftpflichtversicherung?",
-          "description": null,
-          "required": false,
-          "multiline": "false",
-          "jumps": []
-        },
-        {
-          "question_type": "text",
-          "identifier": "textarea_12110979",
-          "headline": "Hast Du noch weitere Informationen oder Anmerkungen für uns?",
-          "description": null,
-          "required": false,
-          "multiline": "true",
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110962",
-          "headline": "Wen möchtest Du versichern?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Meine Familie mit Kindern",
-              "value": "Meine Familie mit Kindern",
-              "selected": false
-            },
-            {
-              "label": "Meine Familie ohne Kinder",
-              "value": "Meine Familie ohne Kinder",
-              "selected": false
-            },
-            {
-              "label": "Mich ohne Kind",
-              "value": "Mich ohne Kind",
-              "selected": false
-            },
-            {
-              "label": "Mich mit Kind",
-              "value": "Mich mit Kind",
-              "selected": false
-            },
-            {
-              "label": "Mich und meinen Lebenspartner",
-              "value": "Mich und meinen Lebenspartner",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12111610",
-          "headline": "Bist Du Beamter oder im öffentlichen Dienst angestellt?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja",
-              "value": "Ja",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12111777",
-          "headline": "Möchtest Du eine Forderungsausfalldeckung absichern?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja",
-              "value": "Ja",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110966",
-          "headline": "Wie wichtig ist Dir die Absicherung gegen Mietsachschäden?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Wichtig",
-              "value": "Wichtig",
-              "selected": false
-            },
-            {
-              "label": "Unwichtig",
-              "value": "Unwichtig",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110967",
-          "headline": "Bist Du Eigentümer einer oder mehrerer Immobilien?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja",
-              "value": "Ja",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": [
-            {
-              "conditions": [
-                {
-                  "field": "list_12110967",
-                  "value": "Ja"
-                }
-              ],
-              "destination": {
-                "id": "list_12110968"
-              }
-            },
-            {
-              "conditions": [
-                {
-                  "field": "list_12110967",
-                  "value": "Nein"
-                }
-              ],
-              "destination": {
-                "id": "list_12111854"
-              }
-            }
-          ]
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110968",
-          "headline": "Gehört Dir eine selbstbewohnte Immobilie?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja, im Inland",
-              "value": "Ja, im Inland",
-              "selected": false
-            },
-            {
-              "label": "Ja, im Ausland",
-              "value": "Ja, im Ausland",
-              "selected": false
-            },
-            {
-              "label": "Ja, im Inland und Ausland",
-              "value": "Ja, im Inland und Ausland",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_13907264",
-          "headline": "Hast Du eine oder mehrere vermietete Immobilien?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja, im Inland",
-              "value": "Ja, im Inland",
-              "selected": false
-            },
-            {
-              "label": "Ja, im Ausland",
-              "value": "Ja, im Ausland",
-              "selected": false
-            },
-            {
-              "label": "Ja, im Inland und Ausland",
-              "value": "Ja, im Inland und Ausland",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12111854",
-          "headline": "Möchtest Du in nächster Zeit etwas bauen oder umbauen?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja",
-              "value": "Ja",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110972",
-          "headline": "Wie wichtig ist Dir die Absicherung gegen beruflichen Schlüsselverlust?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Wichtig",
-              "value": "Wichtig",
-              "selected": false
-            },
-            {
-              "label": "Unwichtig",
-              "value": "Unwichtig",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_13913438",
-          "headline": "Möchtest Du den Verlust privater Schlüssel absichern?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja",
-              "value": "Ja",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110969",
-          "headline": "Möchtest Du im Ausland abgesichert sein?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja, bis zu einem Monat",
-              "value": "Ja, bis zu einem Monat",
-              "selected": false
-            },
-            {
-              "label": "Ja, mehrere Monate",
-              "value": "Ja, mehrere Monate",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110970",
-          "headline": "Hast Du ein Segelboot?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Bis 4 m²",
-              "value": "Bis 4 m²",
-              "selected": false
-            },
-            {
-              "label": "Bis 10 m²",
-              "value": "Bis 10 m²",
-              "selected": false
-            },
-            {
-              "label": "Bis 15 m²",
-              "value": "Bis 15 m²",
-              "selected": false
-            },
-            {
-              "label": "Bis 25 m²",
-              "value": "Bis 25 m²",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110971",
-          "headline": "Hast Du ein Motorboot?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Bis 5 PS",
-              "value": "Bis 5 PS",
-              "selected": false
-            },
-            {
-              "label": "Bis 10 PS",
-              "value": "Bis 10 PS",
-              "selected": false
-            },
-            {
-              "label": "Bis 15 PS",
-              "value": "Bis 15 PS",
-              "selected": false
-            },
-            {
-              "label": "Unbegrenzte PS",
-              "value": "Unbegrenzte PS",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12110965",
-          "headline": "Möchtest Du bei einem Schadensfall einen Teil selbst bezahlen?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            },
-            {
-              "label": "Ja, bis 150 Euro",
-              "value": "Ja, bis 150 Euro",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12111717",
-          "headline": "Hast Du aktuell schon eine Privathaftpflichtversicherung?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Ja",
-              "value": "Ja",
-              "selected": false
-            },
-            {
-              "label": "Nein",
-              "value": "Nein",
-              "selected": false
-            }
-          ],
-          "jumps": [
-            {
-              "conditions": [
-                {
-                  "field": "list_12111717",
-                  "value": "Ja"
-                }
-              ],
-              "destination": {
-                "id": "list_12111755"
-              }
-            },
-            {
-              "conditions": [
-                {
-                  "field": "list_12111717",
-                  "value": "Nein"
-                }
-              ],
-              "destination": {
-                "id": "date_22039590"
-              }
-            }
-          ]
-        },
-        {
-          "question_type": "multiple-choice",
-          "identifier": "list_12111755",
-          "headline": "Wie viele Haftpflichtschäden hattest Du in den letzten 5 Jahren?",
-          "description": null,
-          "required": false,
-          "multiple": "false",
-          "choices": [
-            {
-              "label": "Keine",
-              "value": "Keine",
-              "selected": false
-            },
-            {
-              "label": "1",
-              "value": "1",
-              "selected": false
-            },
-            {
-              "label": "2",
-              "value": "2",
-              "selected": false
-            },
-            {
-              "label": "3",
-              "value": "3",
-              "selected": false
-            },
-            {
-              "label": "Mehr als 3",
-              "value": "Mehr als 3",
-              "selected": false
-            }
-          ],
-          "jumps": []
-        },
-        {
-          "question_type": "text",
-          "identifier": "date_22039590",
-          "headline": "Was wäre Dein Wunschtermin für den Beginn der Privathaftpflichtversicherung?",
-          "description": null,
-          "required": false,
-          "multiline": "false",
-          "jumps": []
-        },
-        {
-          "question_type": "text",
-          "identifier": "textarea_12110979",
-          "headline": "Hast Du noch weitere Informationen oder Anmerkungen für uns?",
-          "description": null,
-          "required": false,
-          "multiline": "true",
-          "jumps": []
-        }
-      ],
-      "description": "Um Dein persönliches Privathaftpflichtversicherungs-Angebot zu erstellen, benötigen wir noch ein paar Informationen von Dir.",
-      "category_name_hyphenated": "Pri\u0026shy;vat\u0026shy;haft\u0026shy;pflicht"
-    }
-  }];
 
-  questions = this.questionsData[0].questionnaire.questions;
- */
   @tracked nextCounter = 0;
+  @tracked counterValue = 1;
+
   isChecked = false;
+  identifierSelected = "";
+  identifierSelectedValue = "";
+
+  nextQuestionsMap = A();
+
+  isJumped = false;
+  presentedIdentifier = "";
+
+  isSelectedSkipQuestion = true;
+  skipArray = A();
+
+  @tracked nextButtonTitle = "Next";
 
   @action
   previousQuestion() {
-    this.nextCounter--;
-    // ${this.get('current-view')}
-    // $.('current-view')
+
+    this.counterValue--;
+    this.skipArray.forEach(skipValue => {
+
+      if (skipValue === this.nextCounter-1) {
+        this.nextCounter--;
+      }
+    });
+
+    //adding jump identifier to an array
+    if (this.nextQuestionsMap.length > 0) {
+      var sourceIdentifier = "";
+      for (let index = 0; index < this.nextQuestionsMap.length; index++) {
+        const question = this.nextQuestionsMap[index];
+
+      // this.nextQuestionsMap.forEach(question => {
+        if (question[0].destinationidentifier === this.presentedIdentifier) {
+          sourceIdentifier = question[0].sourceidentifier;
+
+          let queIndex = this.model.questionnaire.questions.findIndex(question => question.identifier === sourceIdentifier);
+          if (queIndex != -1) {
+
+            this.nextCounter = queIndex;
+
+            this.presentedIdentifier = sourceIdentifier
+            console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
+
+            //resetting seleted values for current qustion
+            this.identifierSelected = "";
+            this.identifierSelectedValue = "";
+
+            return;
+          }
+        }
+      }
+
+      if (sourceIdentifier === "") {
+        this.nextCounter--;
+        this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
+        console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
+
+        //resetting seleted values for current qustion
+        this.identifierSelected = "";
+        this.identifierSelectedValue = "";
+      }
+
+    } else {
+      this.nextCounter--;
+      this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
+      console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
+
+      //resetting seleted values for current qustion
+      this.identifierSelected = "";
+      this.identifierSelectedValue = "";
+    }
+
+    if (this.model.questionnaire.questions.length === this.nextCounter-1) {
+      this.nextButtonTitle = "Finish";
+    } else {
+      this.nextButtonTitle = "Next";
+    }
   }
 
   @action
   nextQuestion() {
+
+    if (this.nextButtonTitle === "Finish") {
+      this.gotoFinishScreen();
+    } else {
+
+    this.counterValue++;
+    this.skipArray.forEach(skipValue => {
+
+      if (skipValue === this.nextCounter+1) {
+        this.nextCounter++;
+      }
+    });
+
+    if (this.identifierSelected) {
+
+      var question;
+      let queIndex = this.model.questionnaire.questions.findIndex(question => question.identifier === this.identifierSelected);
+      if (queIndex != -1) {
+        question = this.model.questionnaire.questions[queIndex];
+      }
+
+      if (question.jumps.length > 0) {
+        let jumpsArray = question.jumps;
+
+          for (let index = 0; index < jumpsArray.length; index++) {
+            const conditionsObj = jumpsArray[index];
+            let conditionsArray = conditionsObj.conditions;
+            var destinationValue;
+
+            //checking jump array for conditions to present next question
+            conditionsArray.forEach(element => {
+            if (element.value === this.identifierSelectedValue && element.field === this.identifierSelected) {
+              let destination = conditionsObj.destination;
+              let queIndexDestination = this.model.questionnaire.questions.findIndex(question => question.identifier === destination.id);
+
+              if (queIndexDestination != -1) {
+                this.isJumped = true;
+                // this.nextCounter++;
+                console.log("jumped to " +this.identifierSelected);
+              } else {
+                // not able to find destination question
+                console.log("not able to find destination question");
+                this.nextCounter++;
+              }
+
+              for (let indexValue = index+1; indexValue < jumpsArray.length; indexValue++) {
+                const conditionsObjSkip = jumpsArray[indexValue];
+                let destinationSkip = conditionsObjSkip.destination;
+
+                let skipQue = this.model.questionnaire.questions.findIndex(question => question.identifier === destinationSkip.id);
+
+                if (skipQue != -1) {
+                  for (let indexSkip = this.nextCounter; indexSkip < skipQue; indexSkip++) {
+                    // const element = array[indexSkip];
+                    this.skipArray.addObject(skipQue);
+                  }
+                }
+              }
+
+              var sourceValue = element.field;
+              destinationValue = destination.id;
+
+              //adding jump identifier to an array
+              if (this.nextQuestionsMap.length > 0) {
+                let queIndex = this.nextQuestionsMap.findIndex(question => question[0].sourceidentifier === this.identifierSelected);
+                if (queIndex != -1) {
+                  let queIndexModel = this.model.questionnaire.questions.findIndex(question => question.identifier === destinationValue);
+
+                  if (queIndexModel != -1) {
+
+                    for (let index = this.nextCounter; index < queIndexModel; index++) {
+                      let indexObj = index + 1;
+                      this.skipArray.addObject(indexObj);
+                    }
+                    this.nextCounter = queIndexModel;
+                  }
+
+                  this.isSelectedSkipQuestion = true;
+                  this.nextQuestionsMap.objectAt(queIndex)[0].destinationidentifier = destinationValue;
+                } else {
+                  this.nextCounter = queIndexDestination;
+                  this.isSelectedSkipQuestion = true;
+                  this.nextQuestionsMap.addObject([{
+                    "sourceidentifier": sourceValue,
+                    "destinationidentifier": destinationValue
+                  }]); // add other condition destination to skip array
+                  // this.nextQuestionsMap.addObject([{"sourceidentifier":sourceValue, "destinationidentifier":destinationValue}]);
+                }
+              } else {
+                this.nextCounter = queIndexDestination;
+                this.isSelectedSkipQuestion = true;
+                this.nextQuestionsMap.addObject([{"sourceidentifier":sourceValue, "destinationidentifier":destinationValue}]);
+                // add other condition destination to skip array
+              }
+
+              this.presentedIdentifier = destinationValue;
+              console.log("jumped to presentedIdentifier " +this.presentedIdentifier);
+
+              //resetting seleted values for current qustion
+              this.identifierSelected = "";
+              this.identifierSelectedValue = "";
+              return;
+            } else {
+              // adding value to skip array
+
+              let questionIndex = this.model.questionnaire.questions.findIndex(question => question.identifier === conditionsObj.destination.id);
+              this.skipArray.addObject(questionIndex);
+              // this.isSelectedSkipQuestion = true;
+            }
+          });
+        }
+        this.isSelectedSkipQuestion = false;
+      } else {
+
+        this.nextCounter++;
+        this.isJumped = false;
+        this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
+        console.log("presentedIdentifier " +this.presentedIdentifier);
+
+        //resetting seleted values for current qustion
+        this.identifierSelected = "";
+        this.identifierSelectedValue = "";
+        return;
+      }
+    } else {
+      //adding jump identifier to an array
+      this.nextButtonClickWithoutclickingOnOption();
+    }
+
+    if (this.model.questionnaire.questions.length === this.nextCounter) {
+      this.nextButtonTitle = "Finish";
+    } else {
+      this.nextButtonTitle = "Next";
+    }
+  }
+  }
+
+  gotoFinishScreen() {
+    this.counterValue = 1;
+    this.nextCounter = 0;
+
+    this.isChecked = false;
+    this.identifierSelected = "";
+    this.identifierSelectedValue = "";
+
+    this.nextQuestionsMap.clear();
+
+    this.isJumped = false;
+    this.presentedIdentifier = "";
+
+    this.isSelectedSkipQuestion = true;
+    this.skipArray.clear();
+
+    this.nextButtonTitle = "Next";
+    this.transitionToRoute('index');
+  }
+
+  nextButtonClickWithoutclickingOnOption() {
+    //adding jump identifier to an array
+    if (this.nextQuestionsMap.length > 0) {
+      let queIndex = this.nextQuestionsMap.findIndex(question => question[0].sourceidentifier === this.presentedIdentifier);
+      if (queIndex != -1) {
+        let queIndexModel = this.model.questionnaire.questions.findIndex(question => question.identifier === this.nextQuestionsMap[queIndex][0].destinationidentifier);
+
+        if (queIndexModel != -1) {
+          this.nextCounter = queIndexModel;
+        }
+      } else {
+      }
+
+      this.presentedIdentifier = this.model.questionnaire.questions[this.nextCounter].identifier;
+      console.log("jumped to presentedIdentifier " +this.presentedIdentifier);
+    } else {
+      //if not selected any option and clicked on Next button
+      // this.nextCounter++;
+      this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
+      console.log("presentedIdentifier " +this.presentedIdentifier);
+    }
     this.nextCounter++;
+
   }
 
   @action
-  checkboxSelected(name, value) {
-    console.log(name + " " +value);
-    console.log('e tokenId', this.get('identifier'));
-    console.log('e tokenId', this.get('item-selected'));
+  radioButtonSelected(identifier, value) {
+    this.identifierSelected = identifier;
+    this.identifierSelectedValue = value;
 
-    this.get('model').forEach(function(item){
-      console.log(item.checked);
-    });
+    console.log(identifier +" "+ value);
+  }
+
+  @action
+  checkboxButtonSelected(identifier, value) {
+    console.log(identifier +" "+ value);
   }
 
 

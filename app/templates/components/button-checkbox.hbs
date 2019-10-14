@@ -1,0 +1,8 @@
+<label>
+  <input name={{identifier}} type="checkbox"
+  value={{item.value}} selected={{item.selected}}
+  onchange={{action "checkboxButtonSelected" item.value item.selected}}>
+  {{item.label}}
+</label>
+
+{{yield}}
