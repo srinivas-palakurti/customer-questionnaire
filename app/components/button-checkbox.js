@@ -4,7 +4,7 @@ export default Component.extend({
 
   actions: {
     checkboxButtonSelected(identifier, value) {
-      // console.log(identifier +" "+ value);
+      console.log(identifier +" "+ value);
       this.optionSelected();
       // var action = this.get('radioButtonSelected');
       // console.log(action);

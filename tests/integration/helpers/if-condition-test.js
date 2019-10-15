@@ -8,10 +8,11 @@ module('Integration | Helper | if-condition', function(hooks) {
 
   // Replace this with your real tests.
   test('it renders', async function(assert) {
-    this.set('inputValue', '1234');
+    assert.expect(1);
+    this.set('inputValue', 'multiple-choice');
 
-    await render(hbs`{{if-condition inputValue}}`);
+    await render(hbs`{{if-condition inputValue "multiple-choice"}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.equal(this.element.textContent.trim(), '');
   });
 });

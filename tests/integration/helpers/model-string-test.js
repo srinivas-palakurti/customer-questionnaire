@@ -8,10 +8,10 @@ module('Integration | Helper | model-string', function(hooks) {
 
   // Replace this with your real tests.
   test('it renders', async function(assert) {
-    this.set('inputValue', '1234');
+    this.set('inputValue', 'multiple-choice');
 
     await render(hbs`{{model-string inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.equal(this.element.textContent.trim(), 'multiple-choice');
   });
 });

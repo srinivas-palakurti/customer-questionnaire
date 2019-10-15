@@ -22,10 +22,14 @@ export default class QuestionContentController extends Controller {
   skipArray = A();
 
   @tracked nextButtonTitle = "Next";
+  requiredQuestionArray = A();
+  @tracked requiredQuestion = false;
+
+  questionnaire = A();
 
   @action
   previousQuestion() {
-
+    this.requiredQuestion = false;
     this.counterValue--;
     this.skipArray.forEach(skipValue => {
 
@@ -50,7 +54,7 @@ export default class QuestionContentController extends Controller {
             this.nextCounter = queIndex;
 
             this.presentedIdentifier = sourceIdentifier
-            console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
+            // console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
 
             //resetting seleted values for current qustion
             this.identifierSelected = "";
@@ -64,7 +68,7 @@ export default class QuestionContentController extends Controller {
       if (sourceIdentifier === "") {
         this.nextCounter--;
         this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
-        console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
+        // console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
 
         //resetting seleted values for current qustion
         this.identifierSelected = "";
@@ -74,7 +78,7 @@ export default class QuestionContentController extends Controller {
     } else {
       this.nextCounter--;
       this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
-      console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
+      // console.log("from previous --> presentedIdentifier " +this.presentedIdentifier);
 
       //resetting seleted values for current qustion
       this.identifierSelected = "";
@@ -86,146 +90,173 @@ export default class QuestionContentController extends Controller {
     } else {
       this.nextButtonTitle = "Next";
     }
+
+    this.requiredQuestionCheckInNext();
+    // this.requiredQuestion = this.model.questionnaire.questions.objectAt(this.nextCounter).required;
   }
 
   @action
   nextQuestion() {
 
+    this.requiredQuestion = false;
     if (this.nextButtonTitle === "Finish") {
       this.gotoFinishScreen();
     } else {
 
-    this.counterValue++;
-    this.skipArray.forEach(skipValue => {
+      this.counterValue++;
+      this.skipArray.forEach(skipValue => {
 
-      if (skipValue === this.nextCounter+1) {
-        this.nextCounter++;
-      }
-    });
+        if (skipValue === this.nextCounter+1) {
+          this.nextCounter++;
+        }
+      });
 
-    if (this.identifierSelected) {
+      if (this.identifierSelected) {
 
-      var question;
-      let queIndex = this.model.questionnaire.questions.findIndex(question => question.identifier === this.identifierSelected);
-      if (queIndex != -1) {
-        question = this.model.questionnaire.questions[queIndex];
-      }
+        var question;
+        let queIndex = this.model.questionnaire.questions.findIndex(question => question.identifier === this.identifierSelected);
+        if (queIndex != -1) {
+          question = this.model.questionnaire.questions[queIndex];
+        }
 
-      if (question.jumps.length > 0) {
-        let jumpsArray = question.jumps;
+        if (question.jumps.length > 0) {
+          let jumpsArray = question.jumps;
 
-          for (let index = 0; index < jumpsArray.length; index++) {
-            const conditionsObj = jumpsArray[index];
-            let conditionsArray = conditionsObj.conditions;
-            var destinationValue;
+            for (let index = 0; index < jumpsArray.length; index++) {
+              const conditionsObj = jumpsArray[index];
+              let conditionsArray = conditionsObj.conditions;
+              var destinationValue;
 
-            //checking jump array for conditions to present next question
-            conditionsArray.forEach(element => {
-            if (element.value === this.identifierSelectedValue && element.field === this.identifierSelected) {
-              let destination = conditionsObj.destination;
-              let queIndexDestination = this.model.questionnaire.questions.findIndex(question => question.identifier === destination.id);
+              //checking jump array for conditions to present next question
+              conditionsArray.forEach(element => {
+              if (element.value === this.identifierSelectedValue && element.field === this.identifierSelected) {
+                let destination = conditionsObj.destination;
+                let queIndexDestination = this.model.questionnaire.questions.findIndex(question => question.identifier === destination.id);
 
-              if (queIndexDestination != -1) {
-                this.isJumped = true;
-                // this.nextCounter++;
-                console.log("jumped to " +this.identifierSelected);
-              } else {
-                // not able to find destination question
-                console.log("not able to find destination question");
-                this.nextCounter++;
-              }
+                if (queIndexDestination != -1) {
+                  this.isJumped = true;
+                  // this.nextCounter++;
+                  // console.log("jumped to " +this.identifierSelected);
+                } else {
+                  // not able to find destination question
+                  // console.log("not able to find destination question");
+                  this.nextCounter++;
+                }
 
-              for (let indexValue = index+1; indexValue < jumpsArray.length; indexValue++) {
-                const conditionsObjSkip = jumpsArray[indexValue];
-                let destinationSkip = conditionsObjSkip.destination;
+                for (let indexValue = index+1; indexValue < jumpsArray.length; indexValue++) {
+                  const conditionsObjSkip = jumpsArray[indexValue];
+                  let destinationSkip = conditionsObjSkip.destination;
 
-                let skipQue = this.model.questionnaire.questions.findIndex(question => question.identifier === destinationSkip.id);
+                  let skipQue = this.model.questionnaire.questions.findIndex(question => question.identifier === destinationSkip.id);
 
-                if (skipQue != -1) {
-                  for (let indexSkip = this.nextCounter; indexSkip < skipQue; indexSkip++) {
-                    // const element = array[indexSkip];
-                    this.skipArray.addObject(skipQue);
+                  if (skipQue != -1) {
+                    for (let indexSkip = this.nextCounter; indexSkip < skipQue; indexSkip++) {
+                      // const element = array[indexSkip];
+                      this.skipArray.addObject(skipQue);
+                    }
                   }
                 }
-              }
 
-              var sourceValue = element.field;
-              destinationValue = destination.id;
+                var sourceValue = element.field;
+                destinationValue = destination.id;
 
-              //adding jump identifier to an array
-              if (this.nextQuestionsMap.length > 0) {
-                let queIndex = this.nextQuestionsMap.findIndex(question => question[0].sourceidentifier === this.identifierSelected);
-                if (queIndex != -1) {
-                  let queIndexModel = this.model.questionnaire.questions.findIndex(question => question.identifier === destinationValue);
+                //adding jump identifier to an array
+                if (this.nextQuestionsMap.length > 0) {
+                  let queIndex = this.nextQuestionsMap.findIndex(question => question[0].sourceidentifier === this.identifierSelected);
+                  if (queIndex != -1) {
+                    let queIndexModel = this.model.questionnaire.questions.findIndex(question => question.identifier === destinationValue);
 
-                  if (queIndexModel != -1) {
+                    if (queIndexModel != -1) {
 
-                    for (let index = this.nextCounter; index < queIndexModel; index++) {
-                      let indexObj = index + 1;
-                      this.skipArray.addObject(indexObj);
+                      for (let index = this.nextCounter; index < queIndexModel; index++) {
+                        let indexObj = index + 1;
+                        this.skipArray.addObject(indexObj);
+                      }
+                      this.nextCounter = queIndexModel;
                     }
-                    this.nextCounter = queIndexModel;
-                  }
 
-                  this.isSelectedSkipQuestion = true;
-                  this.nextQuestionsMap.objectAt(queIndex)[0].destinationidentifier = destinationValue;
+                    this.isSelectedSkipQuestion = true;
+                    this.nextQuestionsMap.objectAt(queIndex)[0].destinationidentifier = destinationValue;
+                  } else {
+                    this.nextCounter = queIndexDestination;
+                    this.isSelectedSkipQuestion = true;
+                    this.nextQuestionsMap.addObject([{
+                      "sourceidentifier": sourceValue,
+                      "destinationidentifier": destinationValue
+                    }]); // add other condition destination to skip array
+                    // this.nextQuestionsMap.addObject([{"sourceidentifier":sourceValue, "destinationidentifier":destinationValue}]);
+                  }
                 } else {
                   this.nextCounter = queIndexDestination;
                   this.isSelectedSkipQuestion = true;
-                  this.nextQuestionsMap.addObject([{
-                    "sourceidentifier": sourceValue,
-                    "destinationidentifier": destinationValue
-                  }]); // add other condition destination to skip array
-                  // this.nextQuestionsMap.addObject([{"sourceidentifier":sourceValue, "destinationidentifier":destinationValue}]);
+                  this.nextQuestionsMap.addObject([{"sourceidentifier":sourceValue, "destinationidentifier":destinationValue}]);
+                  // add other condition destination to skip array
                 }
+
+                this.presentedIdentifier = destinationValue;
+                // console.log("jumped to presentedIdentifier " +this.presentedIdentifier);
+
+                //resetting seleted values for current qustion
+                this.identifierSelected = "";
+                this.identifierSelectedValue = "";
+                return;
               } else {
-                this.nextCounter = queIndexDestination;
-                this.isSelectedSkipQuestion = true;
-                this.nextQuestionsMap.addObject([{"sourceidentifier":sourceValue, "destinationidentifier":destinationValue}]);
-                // add other condition destination to skip array
+                // adding value to skip array
+
+                let questionIndex = this.model.questionnaire.questions.findIndex(question => question.identifier === conditionsObj.destination.id);
+                this.skipArray.addObject(questionIndex);
+                // this.isSelectedSkipQuestion = true;
               }
+            });
+          }
+          this.isSelectedSkipQuestion = false;
+        } else {
 
-              this.presentedIdentifier = destinationValue;
-              console.log("jumped to presentedIdentifier " +this.presentedIdentifier);
+          this.nextCounter++;
+          this.isJumped = false;
+          this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
+          // console.log("presentedIdentifier " +this.presentedIdentifier);
 
-              //resetting seleted values for current qustion
-              this.identifierSelected = "";
-              this.identifierSelectedValue = "";
-              return;
-            } else {
-              // adding value to skip array
-
-              let questionIndex = this.model.questionnaire.questions.findIndex(question => question.identifier === conditionsObj.destination.id);
-              this.skipArray.addObject(questionIndex);
-              // this.isSelectedSkipQuestion = true;
-            }
-          });
+          //resetting seleted values for current qustion
+          this.identifierSelected = "";
+          this.identifierSelectedValue = "";
+          return;
         }
-        this.isSelectedSkipQuestion = false;
       } else {
-
-        this.nextCounter++;
-        this.isJumped = false;
-        this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
-        console.log("presentedIdentifier " +this.presentedIdentifier);
-
-        //resetting seleted values for current qustion
-        this.identifierSelected = "";
-        this.identifierSelectedValue = "";
-        return;
+        //adding jump identifier to an array
+        this.nextButtonClickWithoutclickingOnOption();
       }
-    } else {
-      //adding jump identifier to an array
-      this.nextButtonClickWithoutclickingOnOption();
+
+      if (this.model.questionnaire.questions.length === this.nextCounter) {
+        this.nextButtonTitle = "Finish";
+      } else {
+        this.nextButtonTitle = "Next";
+      }
     }
 
-    if (this.model.questionnaire.questions.length === this.nextCounter) {
-      this.nextButtonTitle = "Finish";
+    this.requiredQuestionCheckInNext();
+}
+
+requiredQuestionCheckInNext() {
+
+  let queIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
+
+  if (this.requiredQuestionArray.length > 0) {
+    if (this.requiredQuestionArray[this.requiredQuestionArray.findIndex(arr=>arr===queIdentifier)] === queIdentifier) {
+      this.requiredQuestion = false;
     } else {
-      this.nextButtonTitle = "Next";
+      this.requiredQuestion = this.model.questionnaire.questions.objectAt(this.nextCounter).required;
+      if (this.requiredQuestion) {
+        this.requiredQuestionArray.addObject(queIdentifier);
+      }
+    }
+  } else {
+    this.requiredQuestion = this.model.questionnaire.questions.objectAt(this.nextCounter).required;
+    if (this.requiredQuestion) {
+      this.requiredQuestionArray.addObject(queIdentifier);
     }
   }
-  }
+}
 
   gotoFinishScreen() {
     this.counterValue = 1;
@@ -243,6 +274,8 @@ export default class QuestionContentController extends Controller {
     this.isSelectedSkipQuestion = true;
     this.skipArray.clear();
 
+    this.requiredQuestion = false;
+
     this.nextButtonTitle = "Next";
     this.transitionToRoute('index');
   }
@@ -257,16 +290,13 @@ export default class QuestionContentController extends Controller {
         if (queIndexModel != -1) {
           this.nextCounter = queIndexModel;
         }
-      } else {
       }
 
       this.presentedIdentifier = this.model.questionnaire.questions[this.nextCounter].identifier;
-      console.log("jumped to presentedIdentifier " +this.presentedIdentifier);
+      // console.log("jumped to presentedIdentifier " +this.presentedIdentifier);
     } else {
-      //if not selected any option and clicked on Next button
-      // this.nextCounter++;
       this.presentedIdentifier = this.model.questionnaire.questions.objectAt(this.nextCounter).identifier;
-      console.log("presentedIdentifier " +this.presentedIdentifier);
+      // console.log("presentedIdentifier " +this.presentedIdentifier);
     }
     this.nextCounter++;
 
@@ -277,12 +307,13 @@ export default class QuestionContentController extends Controller {
     this.identifierSelected = identifier;
     this.identifierSelectedValue = value;
 
-    console.log(identifier +" "+ value);
+    this.requiredQuestion = false;
   }
 
   @action
   checkboxButtonSelected(identifier, value) {
-    console.log(identifier +" "+ value);
+    // console.log(identifier +" "+ value);
+    this.requiredQuestion = false;
   }
 
 

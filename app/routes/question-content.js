@@ -1,5 +1,4 @@
 import Route from '@ember/routing/route';
-// import { fetch } from "fetch";
 
 export default Route.extend({
 
@@ -504,5 +503,7 @@ export default Route.extend({
         "category_name_hyphenated": "Pri\u0026shy;vat\u0026shy;haft\u0026shy;pflicht"
       }
     };
+
   }
+
 });
