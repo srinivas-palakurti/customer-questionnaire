@@ -3,6 +3,10 @@
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
 
+It's an Ember JS application for Online Questionnaire with different question types (Freetext,	Multiple	choice	(single	answer),	Multiple	choice	(multi	answer).
+
+Each question has Description with availbale options dynamically, user can submit seleted options, on succesful submission application will be redirected to Home Page.
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
